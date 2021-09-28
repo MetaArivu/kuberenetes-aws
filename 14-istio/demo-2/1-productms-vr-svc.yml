@@ -1,0 +1,27 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: microserviceworkshop-productservice-vs
+  namespace: microserviceworkshop   
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - microserviceworkshop-gateway
+  http:
+  - match:
+    - headers:
+        end-user:
+          exact: johndoe
+    route:
+    - destination:
+        host: productms-svc.microserviceworkshop.svc.cluster.local
+        subset: v2 # match v2 only
+        port:
+          number: 80
+  - route: 
+    - destination:
+        host: productms-svc.microserviceworkshop.svc.cluster.local
+        subset: v1 # match v1 only
+        port:
+          number: 80

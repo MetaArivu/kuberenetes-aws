@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: helloworld-pod
+  namespace: microserviceworkshop
+  labels:
+    app: hello
+    zone: prod
+    version: v1
+spec:
+  replicas: 02
+  selector:
+    matchLabels: 
+      app: hello    
+  template:
+    metadata:
+      labels:
+        app: hello      
+    spec:
+      containers:
+      - name: hello-cntr
+        image: ketangote/helloworld:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080

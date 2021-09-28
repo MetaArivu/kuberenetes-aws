@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ms-ingress
+  namespace: microserviceworkshop
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: \"false\"
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /productms/
+        backend:
+          serviceName: productms-svc
+          servicePort: 80
+      - path: /productreviewms/
+        backend:
+          serviceName: productreviewms-svc
+          servicePort: 80

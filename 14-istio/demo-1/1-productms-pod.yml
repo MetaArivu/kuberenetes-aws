@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: productms-pod
+  namespace: microserviceworkshop
+  labels:
+    app: productms
+    zone: prod
+    version: v1
+spec:
+  containers:
+  - name: productms-cntr
+    image: ketangote/productms:v1
+    imagePullPolicy: IfNotPresent
+    ports:
+     - containerPort: 8080

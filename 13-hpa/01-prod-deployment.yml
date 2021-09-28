@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: productms-deployment
+  namespace: microserviceworkshop
+  labels:
+    app: productms
+    zone: prod
+    version: v1
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: productms
+  template:
+    metadata:
+      labels:
+        app: productms
+    spec:
+      containers:
+      - name: productms-cntr
+        image: ketangote/productms:v1
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
