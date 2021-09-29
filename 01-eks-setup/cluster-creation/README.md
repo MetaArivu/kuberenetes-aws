@@ -31,10 +31,10 @@ eksctl utils associate-iam-oidc-provider \
 eksctl create nodegroup --cluster=eks-demo-cluster \
                        --region=ap-south-1 \
                        --name=ap-south-1-ng-public1 \
-                       --node-type=t2.micro \
-                       --nodes=1 \
-                       --nodes-min=1 \
-                       --nodes-max=2 \
+                       --node-type=t3.medium \
+                       --nodes=2 \
+                       --nodes-min=2 \
+                       --nodes-max=3 \
                        --node-volume-size=20 \
                        --ssh-access \
                        --ssh-public-key=eks-demo \
@@ -44,6 +44,10 @@ eksctl create nodegroup --cluster=eks-demo-cluster \
                        --full-ecr-access \
                        --appmesh-access \
                        --alb-ingress-access 
+
+Note: 
+- You should create Key Pair on AWS EC2 and download it. 
+- Once it is downloaded give permission using chmod 400 <filename>
 
 ## Verify Nodes & Cluster
 
@@ -55,3 +59,8 @@ eksctl create nodegroup --cluster=eks-demo-cluster \
 
 ## Delete Cluster
 eksctl delete cluster eks-demo-cluster
+
+## Delete Node Group
+eksctl delete nodegroup --cluster=eks-demo-cluster --name=ap-south-1-ng-public1
+
+when we are deleting the cluster using eksctl, its core components should be in same state which means roll back the change we have done to security group before deleting the cluster
